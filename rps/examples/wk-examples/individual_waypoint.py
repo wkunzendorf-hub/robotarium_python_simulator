@@ -91,6 +91,7 @@ while not at_position(x, final_points)[0]:
             goal_points[:, i] = waypoints[waypoint_set_splices[robot_set_number], i]
         else: 
             already_reported[i] = True
+            "comment"
 
 
 
