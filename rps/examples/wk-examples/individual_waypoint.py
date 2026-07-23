@@ -38,7 +38,7 @@ arena_width = r.BOUNDARIES[1] - r.BOUNDARIES[0] - 3*r.ROBOT_DIAMETER
 arena_height = r.BOUNDARIES[3] - r.BOUNDARIES[2] - 3*r.ROBOT_DIAMETER
 
 # Each waypoint position does not block other robot
-waypoints_initialization = generate_random_positions(N=18, width=arena_width, height=arena_height, spacing=0.3) 
+waypoints_initialization = generate_random_positions(N=N*3, width=arena_width, height=arena_height, spacing=0.3) 
 waypoint_set_one = waypoints_initialization[:, 0:N]
 waypoint_set_two = waypoints_initialization[:, N:2*N]
 waypoint_set_three = waypoints_initialization[:, 2*N:3*N]

@@ -1,6 +1,0 @@
-[submodule "libs/robotarium"]
-	path = libs/asynch_sheaves
-	url = https://github.com/wkunzendorf-hub/AsyncSheaves.git
-[submodule "libs/asynch_sheaves"]
-	path = libs/asynch_sheaves
-	url = https://github.com/wkunzendorf-hub/AsyncSheaves.git
