@@ -10,13 +10,13 @@ from asynchsheaves.asynch import initialize_asynchronous_robot_algorithm
 import asynchsheaves.synch as syn
 from asynchsheaves.sheaf import CellularSheaf
 
-# Activation: py rps\examples\wk-examples\asynch_consensus.py
+# Activation: py rps\examples\wk-examples\asynch_linear.py
 
 # =========================================================
 # SIMULATION PARAMETERS
 # =========================================================
 N = 4
-iterations = 1000
+iterations = 3000
 
 # =========================================================
 # GRAPH TOPOLOGY & CONTROLLER SETUP (SHEAF SETUP)
@@ -45,20 +45,20 @@ shf.set_node_loc_sect(3, x3)
 shf.set_node_loc_sect(4, x4)
 
 # Phase and communication rate values
-shf.set_phase_and_comms(1, 2, 100)
-shf.set_phase_and_comms(2, 2, 1000)
-shf.set_phase_and_comms(3, 2, 2000)
-shf.set_phase_and_comms(4, 2, 4000)
+shf.set_phase_and_comms(1, 2, 1000)
+shf.set_phase_and_comms(2, 2, 1200)
+shf.set_phase_and_comms(3, 2, 1400)
+shf.set_phase_and_comms(4, 2, 1600)
 
 # Important simulation variables
 alpha = 0.3
-n = 10
+n = 2
 
 # =========================================================
 # ROBOTARIUM INITIALIZATION
 # =========================================================
 initial_conditions = np.array([[x1[0], x2[0], x3[0], x4[0]], [x1[1], x2[1], x3[1], x4[1]], [0, 0, 0, 0]], dtype=float)
-r = robotarium.Robotarium(number_of_robots=N, show_figure=True, sim_in_real_time=True, initial_conditions=initial_conditions)
+r = robotarium.Robotarium(number_of_robots=N, show_figure=True, sim_in_real_time=False, initial_conditions=initial_conditions)
 
 # Initializing cellular sheaf dynamics
 asynchronous_robot_algorithm = initialize_asynchronous_robot_algorithm(sheaf=shf, alpha=alpha, n=n)
@@ -93,11 +93,4 @@ for k in range(iterations):
 
 r.debug()
 
-# Debugging
-print("Output Values: \n", output_values)
-print("dxi Values: \n", dxi)
-print("Robot Poses: \n", r.get_poses())
-
-Lf = shf.build_0_laplacian()
-# print("Laplacian values: \n", Lf * )
 
