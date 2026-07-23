@@ -2,7 +2,6 @@
 
 import numpy as np
 import rps.robotarium as robotarium
-from rps.utilities.graph import cycleGL, topological_neighbors
 from rps.utilities.transformations import create_si_to_uni_mapping
 
 # Asynch sheaf submodule package
@@ -35,24 +34,24 @@ shf.set_all_res_maps(res_map)
 # Initial state values
 rng = np.random.default_rng()
 func = rng.uniform(-1.6, 1.6, size=2)
-x1 = [-1.0, 1]
-x2 = [1, 1]
-x3 = [1, -1]
-x4 = [-1, -1]
+x1 = [-0.8, 0.8]
+x2 = [0.8, 0.8]
+x3 = [0.8, -0.8]
+x4 = [-0.8, -0.8]
 shf.set_node_loc_sect(1, x1)
 shf.set_node_loc_sect(2, x2)
 shf.set_node_loc_sect(3, x3)
 shf.set_node_loc_sect(4, x4)
 
 # Phase and communication rate values
-shf.set_phase_and_comms(1, 2, 1000)
-shf.set_phase_and_comms(2, 2, 1200)
-shf.set_phase_and_comms(3, 2, 1400)
-shf.set_phase_and_comms(4, 2, 1600)
+shf.set_phase_and_comms(1, 2, 500)
+shf.set_phase_and_comms(2, 2, 1000)
+shf.set_phase_and_comms(3, 2, 1500)
+shf.set_phase_and_comms(4, 2, 2000)
 
 # Important simulation variables
 alpha = 0.3
-n = 2
+n = 10
 
 # =========================================================
 # ROBOTARIUM INITIALIZATION
@@ -61,7 +60,7 @@ initial_conditions = np.array([[x1[0], x2[0], x3[0], x4[0]], [x1[1], x2[1], x3[1
 r = robotarium.Robotarium(number_of_robots=N, show_figure=True, sim_in_real_time=False, initial_conditions=initial_conditions)
 
 # Initializing cellular sheaf dynamics
-asynchronous_robot_algorithm = initialize_asynchronous_robot_algorithm(sheaf=shf, alpha=alpha, n=n)
+asynchronous_robot_algorithm = initialize_asynchronous_robot_algorithm(sheaf=shf, alpha=alpha, n=n, offset=2000)
 
 # Get the SI/UNI mapping functions
 si_to_uni_dyn, uni_to_si_states = create_si_to_uni_mapping()
