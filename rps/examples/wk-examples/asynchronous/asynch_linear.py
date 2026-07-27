@@ -10,13 +10,11 @@ from asynchsheaves.asynch import initialize_asynchronous_robot_algorithm
 import asynchsheaves.synch as syn
 from asynchsheaves.sheaf import CellularSheaf
 
-# Activation: py rps\examples\wk-examples\asynch_linear.py
-
 # =========================================================
 # SIMULATION PARAMETERS
 # =========================================================
 N = 4
-iterations = 1000
+iterations = 750
 
 # =========================================================
 # GRAPH TOPOLOGY & CONTROLLER SETUP (SHEAF SETUP)
@@ -54,7 +52,7 @@ shf.set_phase_and_comms(4, 2, 2000)
 alpha = 0.3
 n = 10
 tuning = 1
-v_max = 0.2
+v_max = 0.12
 
 # =========================================================
 # ROBOTARIUM INITIALIZATION

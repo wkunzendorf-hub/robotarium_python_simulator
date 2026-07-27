@@ -14,7 +14,7 @@ from asynchsheaves.sheaf import CellularSheaf
 # SIMULATION PARAMETERS
 # =========================================================
 N = 4
-iterations = 2000
+iterations = 1500
 
 # =========================================================
 # GRAPH TOPOLOGY & CONTROLLER SETUP (SHEAF SETUP)
@@ -61,9 +61,9 @@ shf.set_phase_and_comms(4, 16, 12_000)
 
 # Important simulation variables
 alpha = 0.3
-n = 100
-tuning = 1
-v_max = 0.2
+n = 25
+tuning = 1.0
+v_max = 0.12
 
 # =========================================================
 # ROBOTARIUM INITIALIZATION
