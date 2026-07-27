@@ -14,7 +14,7 @@ from asynchsheaves.sheaf import CellularSheaf
 # SIMULATION PARAMETERS
 # =========================================================
 N = 4
-iterations = 1000
+iterations = 1250
 
 # =========================================================
 # GRAPH TOPOLOGY & CONTROLLER SETUP (SHEAF SETUP)
@@ -31,17 +31,17 @@ res_map = np.eye(2)
 shf.set_all_res_maps(res_map)
 
 # Edge potentials
-shf.set_distance_edge_potential(1, 2, np.array([[-0.5], [0.5]]))
+shf.set_distance_edge_potential(1, 2, np.array([[0.5], [-0.5]]))
 shf.set_distance_edge_potential(1, 3, np.array([[0.0], [1.0]]))
-shf.set_distance_edge_potential(2, 4, np.array([[1.0], [0.0]]))
+shf.set_distance_edge_potential(2, 4, np.array([[-1.0], [0.0]]))
 shf.set_linear_edge_potentials()
 shf.set_init_edge_pot_grad()
 
 # Initial state values
-x1 = [-0.75, 0.5]
-x2 = [0.75, 0.5]
-x3 = [0.75, -0.5]
-x4 = [-0.75, -0.5]
+x1 = [-0.75, 0.8]
+x2 = [0.75, 0.8]
+x3 = [0.75, -0.2]
+x4 = [-0.75, -0.2]
 shf.set_node_loc_sect(1, x1)
 shf.set_node_loc_sect(2, x2)
 shf.set_node_loc_sect(3, x3)
