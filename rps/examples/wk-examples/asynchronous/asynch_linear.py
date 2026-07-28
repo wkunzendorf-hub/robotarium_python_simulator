@@ -52,7 +52,8 @@ shf.set_phase_and_comms(4, 2, 2000)
 alpha = 0.3
 n = 10
 tuning = 1
-v_max = 0.12
+v_max = 0.18
+w_max = 3.6
 
 # =========================================================
 # ROBOTARIUM INITIALIZATION
@@ -66,6 +67,10 @@ asynchronous_robot_algorithm = initialize_asynchronous_robot_algorithm(sheaf=shf
 # Get the SI/UNI mapping functions
 si_to_uni_dyn, uni_to_si_states = create_si_to_uni_mapping()
 uni_barrier_cert = create_uni_barrier_certificate_with_boundary()
+
+assert v_max < r.MAX_LINEAR_VELOCITY, "V max must be below maximum linear velocity." # 0.2 m/s
+assert v_max < 2 * r.WHEEL_RADIUS * r.MAX_WHEEL_VELOCITY / (2 + r.BASE_LENGTH), "V max must not cause wheel velocity to exceed max." # 0.1895 s^-1
+assert w_max < r.MAX_ANGULAR_VELOCITY, "Omega max must be below maximum angular velocity." # 3.636 s^-1
 
 # =========================================================
 # MAIN SIMULATION LOOP
@@ -86,15 +91,22 @@ for k in range(iterations):
 
     dxi = tuning * (output_values - xi)
 
-    # Velocity maximum control
-    for robot in range(dxi.shape[1]):
-        velocity = dxi[:, robot]
-        v_mag = np.linalg.norm(velocity)
-        velocity = min(1, v_max / v_mag) * velocity
-        dxi[:, robot] = velocity
-
     # Convert to unicycle velocities
     dxu = si_to_uni_dyn(dxi, x)
+
+    for robot in range(dxu.shape[1]):
+        # linear velocity
+        velocity = dxu[:2, robot]
+        v_mag = np.linalg.norm(velocity)
+        velocity = min(1, v_max / v_mag) * velocity
+        dxu[:2, robot] = velocity
+
+        # angular velocity
+        angular = dxu[-1, robot]
+        w_mag = np.abs(angular)
+        angular = min(1, w_max / w_mag) * angular
+        dxu[-1, robot] = angular
+
     dxu = uni_barrier_cert(dxu, x)
 
     r.set_velocities(np.arange(N), dxu)
