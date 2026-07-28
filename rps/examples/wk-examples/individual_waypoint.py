@@ -19,7 +19,7 @@ N = 6
 # ROBOTARIUM INITIALIZATION
 # =========================================================
 initial_positions = generate_random_poses(N, spacing=0.5)
-r = robotarium.Robotarium(number_of_robots=N, show_figure=True, initial_conditions=initial_positions)
+r = robotarium.Robotarium(number_of_robots=N, show_figure=True, sim_in_real_time=False, initial_conditions=initial_positions)
 
 # =========================================================
 # CONTROLLER AND SAFETY SETUP
@@ -61,11 +61,8 @@ r.step()
 # =========================================================
 goal_points = waypoints[[0, 1], :]
 already_reported = np.zeros(N, dtype=bool)
-waypoint_set_splices = {1: np.array([0, 1]),
-                        2: np.array([2, 3]),
-                        3: np.array([4, 5])
-                        } # Splices for waypoint sets
-robot_set_numbers = {i: 1 for i in [1, 2, 3, 4, 5, 6]}
+waypoint_set_splices = {i: np.array([(i-1)*2, (i-1)*2+1]) for i in range(1, 3+1)}
+robot_set_numbers = {i: 1 for i in range(1, N+1)}
 
 # at_position returns (all_done, per_robot_done_array)
 while not at_position(x, final_points)[0]:
